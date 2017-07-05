@@ -10,13 +10,13 @@ npm install express body-parser bootstrap connect-flash connect-mongo debug ejs 
 ```
 - express  nodejs框架
 - body-parser 
-```
+
 bodyParser中间件用来解析http请求体，是express默认使用的中间件之一
 使用express应用生成器生成一个网站，它默认已经使用了 bodyParser.json 与 bodyParser.urlencoded的解析功,除了这两个，bodyParser还支持对text、raw的解析。
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 顾名思义，bodyParser.json是用来解析json数据格式的。bodyParser.urlencoded则是用来解析我们通常的form表单提交的数据，也就是请求头中包含这样的信息： Content-Type: application/x-www-form-urlencoded
-```
+
 ###常见的四种Content-Type类型：
 - application/x-www-form-urlencoded 常见的form提交
 - multipart/form-data 文件提交
