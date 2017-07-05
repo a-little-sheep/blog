@@ -17,7 +17,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 顾名思义，bodyParser.json是用来解析json数据格式的。bodyParser.urlencoded则是用来解析我们通常的form表单提交的数据，也就是请求头中包含这样的信息： Content-Type: application/x-www-form-urlencoded
 
-#### 常见的四种Content-Type类型：
+### 常见的四种Content-Type类型：
 - application/x-www-form-urlencoded 常见的form提交
 - multipart/form-data 文件提交
 - application/json 提交json格式的数据
@@ -27,7 +27,7 @@ querystring就是nodejs内建的对象之一，用来字符串化对象或解析
 ```
 querystring.parse("name=henry&age=30") => { name: 'henry', age: '30' }
 ```
-##### qs介绍
+### qs介绍
 qs是一个querystring的库，在qs的功能基础上，还支持更多的功能并优化了一些安全性。比如，对象解析的支持：
 ```
 // 内建对象 querystring
@@ -54,7 +54,7 @@ qs.parse("info[name]=henry&info[age]=30&hobby[1]=sport&hobby[2]=coding") =>
 理论上来说，form表单提交不会有多级嵌套的情况，而urlencoded本身也是form的内容类型，因此，bodyParser.urlencoded不支持多级嵌套也是很合理的设计。
 
 那么，如果我们非要上传一个十分复杂的对象，应该怎么办？
-##### 解决方案
+### 解决方案
 出现这个问题的根本原因是：我以form的形式去提交了一个json数据。
 jquery默认的 content-Type 配置的是 application/x-www-form-urlencoded ，
 因此更改ajax请求参数： contentType: "application/json" ，并将数据转成json提交，问题就解决了。
@@ -121,7 +121,7 @@ router.post("/save", function (req, res, next) {
 /article/delete/:id 删除文章
 ```
 ### 路由实现
-##### 在server.js
+#### 在server.js
 ```
 let express = require("express");
 let index = express.require("./router/index");//里面的路径就是指路由文件夹相对与当前的server.js的相对路径
@@ -129,7 +129,7 @@ let app = express(); //创建一个app实例
 app.user("/",index);//调取index路由
 app.lisen(8000);//开启端口号
 ```
-##### 在routes/index.js
+#### 在routes/index.js
 ```
 let express = require("express");
 let router = express.Router();//创建路由
