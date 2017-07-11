@@ -76,14 +76,72 @@ router.post("/save", function (req, res, next) {
     console.log(req.body); // => { name: 'henry', age: 30, hobby: [ 'sport', 'coding' ] }
 });
 ```
-- connect-flash
+- express-session
 - connect-mongo
+- connect-flash
+```
+let session = require('express-session');
+let MongoStore = require('connect-mongo')(session);
+//使用会话中间件
+app.use(session({
+  resave:true,//每次请求结束重新保存session
+  saveUninitialized:true,//保存未初始化的session
+  secret:'zfpx',//加密cookie的秘钥
+  //指定session数据的存放位置，可能是内存、文件系统、数据库
+  store:new MongoStore({url:'mongodb://127.0.0.1/201703blog'})
+}));
+//所有的中间件都是一个函数，所以都需要执行一下再放到use里
+app.use(flash());
+//使用此中间件之后 req.flash();
+// req.flash(type,msg) 二个参数写入一条消息
+// req.flash(type) 一个参数表示读取一条消息
+/**
+ * ？ 如何控制页面上的菜单显示
+ * 1. 当登录成功之后，会把查询到的当前用户对象保存到会话对象中 req.session
+ * 2. 在渲染其它页面时，先把会话对象(req.session)中的user属性取出来赋给了res.locals(真正渲染模板的数据对象).
+ * .在模板里就可以通过user有没有值来控制 菜单的显示 。
+ */
+app.use(function(req,res,next){
+  // res.locals 是真正渲染模板的数据对象
+ res.locals.user = req.session.user;
+ res.locals.success = req.flash('success').toString();
+ res.locals.error = req.flash('error').toString();
+ next();
+});
+app.use(function(req,res,next){
+  res.success = function(msg,url){
+    req.flash('success',msg);
+    res.redirect(url);
+  }
+  res.error = function(err,url){
+    req.flash('error',err);
+    res.redirect(url);
+  }
+  res.back = function(err){
+    res.error(err.toString(),'back');
+  }
+  next();
+});
+
+```
+
 - debug
 - ejs
-- express-session
 - mongoose  封装mongdb数据库方法
 - multer
-
+### multer是指模块文件上传
+```
+let multer = require('multer'); //引入multer 文件保存插件
+let upload = multer({dest:'./public'});//dest 用来指定上传的文件存放的目录
+//此文件路径应该是相对于server.js所在目录
+//也就是说相对于启动的入口文件
+这个模块form中必须指定是enctype="multipart/form-data"这样的设置
+然后就是在 post中 function(req,res){}前添加 upload.single('avatar')
+//avatar 是指 form中的input[file]元素的name=的值
+//req.file 指的是上传的文件信息 req.body 包含文本字段
+获取上传的图片（文件）的路径 `/${req.file.filename}`;
+```
+  
 ## 配置路由
 ### 用户管理
 - 用户注册
@@ -174,8 +232,13 @@ app.engine('html'require('ejs').__express）;
 
 
 
-
-
+## res.render , res.redirect , res.send 
+```
+res.render 是用来渲染那个页面
+res.redirect 是用来修改导航条中的访问路劲
+res.send 是用来返回数据的 是express写法
+res.end 是node原声写法
+```
 
 
 

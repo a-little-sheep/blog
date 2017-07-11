@@ -1,3 +1,27 @@
 <%include ./include/header.html%>
-首页
+<div class="row">
+    <div class="col-md-10 col-md-offset-1">
+        <%articles.forEach(function(article){%>
+        <div class="media">
+            <div class="media-left">
+                <a href="">
+                    <img class="media-object avatar" src="<%=article.author&&article.author.avatar%>" alt="">
+                </a>
+            </div>
+            <div class="media-body">
+                <h4 class="media-heading">
+                    <a href="/article/detail/<%=article._id%>">
+                        <%=article.title%>
+                    </a>
+                </h4>
+                <p><%=article.content%></p>
+                <p><%=article.author&&article.author.username%>
+                    <span style="margin:0 2px;">/</span>
+                    <span style="color:#666;font-size:12px;"><%=article.createAt.toLocaleString()%></span>
+                </p>
+            </div>
+        </div>
+        <%})%>
+    </div>
+</div>
 <%include ./include/footer.html%>

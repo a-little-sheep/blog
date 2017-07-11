@@ -1,3 +1,18 @@
 <% include ../include/header.html%>
-添加分类
+<form method="post" class="form-horizontal">
+    <div class="form-group row">
+        <label for="name" class="control-label col-md-2">分类名称</label>
+        <div class="col-md-10 input-group">
+                   <span class="input-group-addon">
+                       <i class="glyphicon glyphicon-th"></i>
+                   </span>
+            <input type="text" id="name" class="form-control" name="name">
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-10 col-md-offset-2">
+            <button type="submit" class="btn btn-primary">提交</button>
+        </div>
+    </div>
+</form>
 <% include ../include/footer.html%>

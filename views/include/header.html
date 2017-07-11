@@ -6,6 +6,10 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="/bootstrap/dist/css/bootstrap.min.css">
     <title><%=title%></title>
+    <style type="text/css">
+        .avatar{width:30px;height:30px;border-radius:5px;}
+        .username{padding-left:10px;}
+    </style>
 </head>
 <body>
 <nav class="navbar navbar-inverse">
@@ -14,19 +18,39 @@
             <a href="/" class="navbar-brand">博客</a>
         </div>
         <ul class="nav navbar-nav">
+            <%if(user){%>
             <li><a href="/category/list">分类管理</a></li>
             <li><a href="/article/add">增加文章</a></li>
-            <li><a href="/user/signout">退出</a></li>
+            <%}else{%>
             <li><a href="/user/signup">注册</a></li>
             <li><a href="/user/signin">登录</a></li>
+            <%}%>
         </ul>
-        <!--<ul class="nav navbar-nav navbar-right">-->
-        <!--<li>-->
-        <!--<a href=""><img class="avatar" src="" alt=""></a>-->
-        <!--</li>-->
-        <!--</ul>-->
+        <%if(user){%>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="">
+                <img class="avatar" src="<%=user.avatar%>" alt="<%=user.avatar%>">
+                <span class="username"><%=user.username%></span>
+            </a></li>
+            <li><a href="/user/signout">退出</a></li>
+        </ul>
+        <%}%>
     </div>
 </nav>
 <div class="container">
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <%if(success){%>
+            <div class="alert alert-success text-center">
+                <%=success%>
+            </div>
+            <%}%>
+            <%if(error){%>
+            <div class="alert alert-danger text-center">
+                <%=error%>
+            </div>
+            <%}%>
+        </div>
+    </div>
     <div class="row">
         <div class="col-md-10 col-offset-1">
