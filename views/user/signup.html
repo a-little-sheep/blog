@@ -33,7 +33,10 @@
             <span class="input-group-addon">
                 <span class="glyphicon glyphicon-envelope"></span>
             </span>
-            <input type="file" name="avatar" id="avatar" class="form-control" required>
+            <div class="form-control" style="position:relative;">
+                <input type="file" name="avatar" id="avatar" style="position:absolute;top:3px;opacity:0;z-index:999;cursor:pointer;" class="btn btn-primary btn-xs"  required>
+                <button class="btn btn-primary btn-xs" style="position:absolute;top:5px;z-index:99;cursor:pointer;width:240px;">选择图片</button>
+            </div>
         </div>
     </div>
     <div class="form-group">
